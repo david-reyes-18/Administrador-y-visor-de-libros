@@ -1,13 +1,5 @@
-import customtkinter as ctk
+
 from abc import ABC, abstractmethod
-
-class NavegadorAbstracto(ABC):
-
-    @abstractmethod
-    def navegar(self, destino: str) -> None:
-        """Cambia a la ruta indicada."""
-        pass
-
 
 class RutaNavegacion(ABC):
     rutas_registradas: list[type["RutaNavegacion"]] = []
