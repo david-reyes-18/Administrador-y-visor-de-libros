@@ -1,16 +1,27 @@
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
-from Utils.utils import *
+from infraestructura.manejador_rutas.rutas import Rutas
+from Utils.utils import BEIGE_MADERA, MARRON_MADERA, IMG_FONDO
+from presentacion.navegacion.tipo_vista import TipoVista
+from presentacion.vistas.vista_base import VistaBase
 
-class VistaLogin(ctk.CTkFrame):
 
+class VistaLogin(ctk.CTkFrame, VistaBase):
+    
     def __init__(self, padre, navegacion):
         super().__init__(padre)
 
-        fondo = ctk.CTkLabel(self, text="", image=IMG_FONDO)
-        fondo.place(x=0, y=0, relwidth=1, relheight=1)
+        self.imagen_fondo = IMG_FONDO
+        self.fondo = ctk.CTkLabel(self, text="", image=self.imagen_fondo)
+        self.fondo.place(x=0, y=0, relwidth=1, relheight=1)
+        self.bind("<Configure>", self.ajustar_fondo)
+
         self.navegacion = navegacion
         self.crear_interfaz()
+
+    def ajustar_fondo(self, evento):
+        if evento.width > 1 and evento.height > 1:
+            self.imagen_fondo.configure(size=(evento.width, evento.height))
 
     def crear_interfaz(self):
         self.grid_columnconfigure(0, weight=1)
@@ -34,17 +45,16 @@ class VistaLogin(ctk.CTkFrame):
         boton_ingresar = ctk.CTkButton(formulario, text="Ingresar", width=300, height=45, fg_color = MARRON_MADERA, hover_color = BEIGE_MADERA, command=self.iniciar_sesion)
         boton_ingresar.grid(row=3, column=0, padx=40, pady=(30, 10))
 
-        boton_registro = ctk.CTkButton(formulario, text="Crear cuenta", width=300, height=45, fg_color="transparent", border_width=1, hover_color = BEIGE_MADERA,  border_color=MARRON_MADERA, text_color=BEIGE_MADERA, command=lambda: self.navegacion.navegar("registro"))
+        boton_registro = ctk.CTkButton(formulario, text="Crear cuenta", width=300, height=45, fg_color="transparent", border_width=1, hover_color = BEIGE_MADERA,  border_color=MARRON_MADERA, text_color=BEIGE_MADERA, command=lambda: self.navegacion.mostrar_vista(TipoVista.REGISTRO))
         boton_registro.grid(row=4, column=0, padx=40, pady=10)
 
     def iniciar_sesion(self):
         try:
-            usuario = self.navegacion.servicio_login.autenticar( correo=self.entrada_correo.get(), contrasena=self.entrada_contrasena.get())
+            usuario = self.navegacion.master.servicio_login.autenticar(correo=self.entrada_correo.get(), contrasena=self.entrada_contrasena.get())
 
         except ValueError as error:
             CTkMessagebox(title="Inicio de sesión", message=str(error), icon="cancel")
             return
 
-        self.navegacion.usuario_actual = usuario
-        self.navegacion.navegacion("aqui falta xd")
-
+        self.navegacion.master.usuario_actual = usuario
+        CTkMessagebox(title="Inicio de sesión", message="Sesión iniciada correctamente.", icon="check")

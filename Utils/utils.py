@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from PIL import Image
-from .RUTAS.rutas import FONDO, BRR_PATAPIM
+from infraestructura.manejador_rutas.rutas import Rutas
 
 
 NEGRO_FONDO = "#0B0B0B"
@@ -16,5 +16,6 @@ GRIS_BORDE = "#3A332F"
 ANCHO = 1920
 ALTO = 1080
 
-IMG_FONDO = ctk.CTkImage(dark_image=Image.open(FONDO), size=(ANCHO, ALTO))
-BRR_PATAPIMES = ctk.CTkImage(dark_image=Image.open(BRR_PATAPIM), size=(450, 480))
+
+IMG_FONDO = ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("Fondo.png")), size=(ANCHO, ALTO))
+BRR_PATAPIMES = ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("Brr_patapim.png")), size=(450, 480))

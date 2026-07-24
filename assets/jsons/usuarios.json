@@ -4,6 +4,7 @@
         "apellido": "Asd",
         "correo": "asd@gmail.cokm",
         "contrasena": "123456",
+        "libros": [],
         "id": "8b065179-7b12-4e9a-aea0-9d0a0a7ea053"
     },
     {
@@ -11,6 +12,15 @@
         "apellido": "Asd",
         "correo": "asd1@gmail.com",
         "contrasena": "123456",
+        "libros": [],
         "id": "62de77ec-52c9-4771-a68e-a58e4e131da8"
+    },
+    {
+        "nombre": "Tung",
+        "apellido": "Tung",
+        "correo": "tung@tung.tung",
+        "contrasena": "tungtung",
+        "libros": [],
+        "id": "2e74159a-a336-4b12-b49f-301ebdbbc994"
     }
 ]

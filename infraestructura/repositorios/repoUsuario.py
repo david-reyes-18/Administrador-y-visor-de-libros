@@ -1,14 +1,14 @@
 from dataclasses import asdict
 
-from ...RUTAS.rutas import RUTA_USUARIOS
+from infraestructura.manejador_jsons.manejador_jsons import ManejadorJSON
+from infraestructura.manejador_rutas.rutas import Rutas
 from Modelos.usuario import Usuario
-from .repoJSON import cargar_json, guardar_json
 
 
 class RepositorioUsuario:
 
     def obtener_todos(self) -> list[Usuario]:
-        datos = cargar_json(RUTA_USUARIOS)
+        datos = ManejadorJSON.cargar_json(Rutas.get_json("usuarios.json"))
 
         return [
             Usuario(**usuario)
@@ -36,4 +36,4 @@ class RepositorioUsuario:
             for usuario in usuarios
         ]
 
-        guardar_json(RUTA_USUARIOS, datos)
+        ManejadorJSON.guardar_json(Rutas.get_json("usuarios.json"), datos)

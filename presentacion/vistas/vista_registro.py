@@ -1,16 +1,24 @@
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 from Utils.utils import *
+from presentacion.navegacion.tipo_vista import TipoVista
 
 class VistaRegistro(ctk.CTkFrame):
 
     def __init__(self, padre, navegacion):
         super().__init__(padre)
 
-        fondo = ctk.CTkLabel(self, text="", image=IMG_FONDO)
-        fondo.place(x=0, y=0, relwidth=1, relheight=1)
+        self.imagen_fondo = IMG_FONDO
+        self.fondo = ctk.CTkLabel(self, text="", image=self.imagen_fondo)
+        self.fondo.place(x=0, y=0, relwidth=1, relheight=1)
+        self.bind("<Configure>", self.ajustar_fondo)
+
         self.navegacion = navegacion
         self.crear_interfaz()
+
+    def ajustar_fondo(self, evento):
+        if evento.width > 1 and evento.height > 1:
+            self.imagen_fondo.configure(size=(evento.width, evento.height))
 
     def crear_interfaz(self):
         self.grid_columnconfigure(0, weight=3)
@@ -46,13 +54,13 @@ class VistaRegistro(ctk.CTkFrame):
         boton_registro = ctk.CTkButton(formulario, text="Crear cuenta", width=300, height=45, fg_color=MARRON_MADERA, border_width=1, hover_color = BEIGE_MADERA, command=lambda: self.registrar())
         boton_registro.grid(row=6, column=0, padx=40, pady=10, sticky="w")
 
-        boton_volver = ctk.CTkButton(formulario, text="Volver al inicio de sesión", width=300, height=45, fg_color="transparent", hover_color=BEIGE_MADERA, border_width=1, border_color=MARRON_MADERA, text_color=BEIGE_MADERA, command=lambda: self.navegacion.navegar("login"))
+        boton_volver = ctk.CTkButton(formulario, text="Volver al inicio de sesión", width=300, height=45, fg_color="transparent", hover_color=BEIGE_MADERA, border_width=1, border_color=MARRON_MADERA, text_color=BEIGE_MADERA, command=lambda: self.navegacion.mostrar_vista(TipoVista.LOGIN))
         boton_volver.grid(row=7, column=0, padx=40, pady=10, sticky="w")
 
 
     def registrar(self):
         try:
-            self.navegacion.servicio_registro.registrar(
+            self.navegacion.master.servicio_registro.registrar(
                 nombre=self.entrada_nombre.get(),
                 apellido = self.entrada_apellido.get(),
                 correo=self.entrada_correo.get(),
@@ -65,4 +73,4 @@ class VistaRegistro(ctk.CTkFrame):
             return
 
         CTkMessagebox( title="Registro exitoso", message="La cuenta fue creada correctamente.", icon="check")
-        self.navegacion.navegacion("aqui falta xd")
+        self.navegacion.mostrar_vista(TipoVista.LOGIN)

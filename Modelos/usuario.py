@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from uuid import uuid4
 from VALIDADORES.usuariovalido import ValidadorContrasena, ValidadorCorreo, ValidadorNombre
+from Modelos.libro import Libro
 
 @dataclass
 class Usuario:
@@ -8,6 +9,7 @@ class Usuario:
     apellido: str
     correo: str
     contrasena: str
+    libros: list[Libro] = field(default_factory=list)
     id: str = field(default_factory=lambda: str(uuid4()))
 
     def __post_init__(self) -> None:
