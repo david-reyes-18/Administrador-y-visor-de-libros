@@ -17,5 +17,12 @@ ANCHO = 1920
 ALTO = 1080
 
 
-IMG_FONDO = ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("Fondo.png")), size=(ANCHO, ALTO))
+def crear_imagen_fondo():
+    """Crea una imagen independiente para evitar callbacks de vistas destruidas."""
+    return ctk.CTkImage(
+        dark_image=Image.open(Rutas.get_imagen("Fondo.png")),
+        size=(ANCHO, ALTO),
+    )
+
+
 BRR_PATAPIMES = ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("Brr_patapim.png")), size=(450, 480))

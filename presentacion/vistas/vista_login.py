@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 from infraestructura.manejador_rutas.rutas import Rutas
-from Utils.utils import BEIGE_MADERA, MARRON_MADERA, IMG_FONDO
+from Utils.utils import BEIGE_MADERA, MARRON_MADERA, crear_imagen_fondo
 from presentacion.navegacion.tipo_vista import TipoVista
 from presentacion.vistas.vista_base import VistaBase
 
@@ -11,7 +11,7 @@ class VistaLogin(ctk.CTkFrame, VistaBase):
     def __init__(self, padre, navegacion):
         super().__init__(padre)
 
-        self.imagen_fondo = IMG_FONDO
+        self.imagen_fondo = crear_imagen_fondo()
         self.fondo = ctk.CTkLabel(self, text="", image=self.imagen_fondo)
         self.fondo.place(x=0, y=0, relwidth=1, relheight=1)
         self.bind("<Configure>", self.ajustar_fondo)
