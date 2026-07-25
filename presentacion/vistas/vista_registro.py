@@ -2,8 +2,9 @@ import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 from Utils.utils import *
 from presentacion.navegacion.tipo_vista import TipoVista
+from presentacion.vistas.vista_base import VistaBase
 
-class VistaRegistro(ctk.CTkFrame):
+class VistaRegistro(ctk.CTkFrame, VistaBase):
 
     def __init__(self, padre, navegacion):
         super().__init__(padre)
