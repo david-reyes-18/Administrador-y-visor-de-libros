@@ -1,7 +1,13 @@
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 from infraestructura.manejador_rutas.rutas import Rutas
-from Utils.utils import BEIGE_MADERA, MARRON_MADERA, crear_imagen_fondo
+from Utils.utils import (
+    BEIGE_MADERA,
+    MARRON_MADERA,
+    ROJO_ACENTO,
+    ROJO_HOVER,
+    crear_imagen_fondo,
+)
 from presentacion.navegacion.tipo_vista import TipoVista
 from presentacion.vistas.vista_base import VistaBase
 
@@ -47,6 +53,9 @@ class VistaLogin(ctk.CTkFrame, VistaBase):
 
         boton_registro = ctk.CTkButton(formulario, text="Crear cuenta", width=300, height=45, fg_color="transparent", border_width=1, hover_color = BEIGE_MADERA,  border_color=MARRON_MADERA, text_color=BEIGE_MADERA, command=lambda: self.navegacion.mostrar_vista(TipoVista.REGISTRO))
         boton_registro.grid(row=4, column=0, padx=40, pady=10)
+
+        boton_cerrar = ctk.CTkButton(formulario, text="✕", width=32, height=32, corner_radius=8, fg_color=ROJO_ACENTO, hover_color=ROJO_HOVER, command=self.navegacion.master.destroy)
+        boton_cerrar.place(relx=1.0, x=-15, y=15, anchor="ne")
 
     def iniciar_sesion(self):
         try:

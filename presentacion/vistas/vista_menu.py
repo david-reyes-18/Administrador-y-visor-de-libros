@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from Utils.utils import *
 from presentacion.vistas.vista_base import VistaBase
-
+from presentacion.navegacion.tipo_vista import TipoVista
 
 class Menu(ctk.CTkFrame, VistaBase):
     
@@ -23,8 +23,8 @@ class Menu(ctk.CTkFrame, VistaBase):
         self.cabecera.grid(row=0, column=0, columnspan=2, sticky="ew", padx=20, pady=(20, 5))
         self.cabecera.grid_propagate(False)
 
-        bob_esponja = ctk.CTkLabel(self.cabecera, text="", image= BOB_ESPONJA)
-        bob_esponja.place(relx=0.5, rely=0.5, x=-180, anchor="center")
+        self.bob_esponja = ctk.CTkLabel(self.cabecera, text="", image= BOB_ESPONJA)
+        self.bob_esponja.place(relx=0.5, rely=0.5, x=-180, anchor="center")
 
         self.titulo = ctk.CTkLabel(self.cabecera, text="Libreria Tung Tung", text_color=CREMA_TEXTO, font=ctk.CTkFont(size=28, weight="bold"))
         self.titulo.pack(padx=30, pady=20)
@@ -35,6 +35,9 @@ class Menu(ctk.CTkFrame, VistaBase):
 
         self.boton_menu = ctk.CTkButton(self.menu_scroll, text="☰", width=50, height=45, corner_radius=10, fg_color=MARRON_MADERA, hover_color=BEIGE_MADERA, text_color=CREMA_TEXTO, command=self.alternar_menu)
         self.boton_menu.grid(row=0, column=0, sticky="ew", padx=10, pady=(8, 4))
+
+        self.boton_cerrar_sesion = ctk.CTkButton(self.cabecera, text="Cerrar sesión", width=125, height=36, corner_radius=10, fg_color=ROJO_ACENTO, hover_color=ROJO_HOVER, text_color=CREMA_TEXTO, command=lambda: self.navegacion.mostrar_vista(TipoVista.LOGIN))
+        self.boton_cerrar_sesion.place(relx=1.0, rely=0.5, x=-20, anchor="e")
 
         self.boton_inicio = ctk.CTkButton(self.menu_scroll, text="🏠  Inicio", height=60, corner_radius=10, fg_color=MARRON_MADERA, hover_color=BEIGE_MADERA, text_color=CREMA_TEXTO, anchor="w", command=self.accion_boton)
         self.boton_inicio.grid(row=1, column=0, sticky="ew", padx=10, pady=8)
