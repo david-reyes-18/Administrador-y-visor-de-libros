@@ -12,17 +12,17 @@ CREMA_TEXTO = "#E8D7C3"
 ROJO_ACENTO = "#8F2D2D"
 ROJO_HOVER = "#A63A3A"
 GRIS_BORDE = "#3A332F"
+GRIS = "#666666"
 
 ANCHO = 1920
 ALTO = 1080
 
+ANCHO_MENU_ABIERTO = 260
+ANCHO_MENU_CERRADO = 80
 
 def crear_imagen_fondo():
-    """Crea una imagen independiente para evitar callbacks de vistas destruidas."""
-    return ctk.CTkImage(
-        dark_image=Image.open(Rutas.get_imagen("Fondo.png")),
-        size=(ANCHO, ALTO),
-    )
-
+    #Crea una imagen independiente para evitar callbacks de vistas destruidas.
+    return ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("Fondo.png")), size=(ANCHO, ALTO))
 
 BRR_PATAPIMES = ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("Brr_patapim.png")), size=(450, 480))
+BOB_ESPONJA = ctk.CTkImage(dark_image=Image.open(Rutas.get_imagen("bob_esponja.png")), size=(95, 57))

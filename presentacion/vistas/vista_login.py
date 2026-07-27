@@ -57,4 +57,6 @@ class VistaLogin(ctk.CTkFrame, VistaBase):
             return
 
         self.navegacion.master.usuario_actual = usuario
-        CTkMessagebox(title="Inicio de sesión", message="Sesión iniciada correctamente.", icon="check")
+        mensaje = CTkMessagebox(title="Inicio de sesión", message="Sesión iniciada correctamente.", icon="check")
+        mensaje.get()
+        self.navegacion.mostrar_vista(TipoVista.MENU)

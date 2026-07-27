@@ -11,11 +11,7 @@ class NavegadorVista:
         self.vista_actual: ctk.CTkFrame | None = None
         self.tipo_vista_actual: TipoVista | None = None
 
-    def agregar_vista(
-        self,
-        tipo_vista: TipoVista,
-        crear_vista: Callable[[], ctk.CTkFrame],
-    ):
+    def agregar_vista(self, tipo_vista: TipoVista, crear_vista: Callable[[], ctk.CTkFrame]):
         self.vistas[tipo_vista] = crear_vista
     
     def mostrar_vista(self, tipo_vista: TipoVista):
