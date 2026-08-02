@@ -37,3 +37,20 @@ class RepositorioUsuario:
         ]
 
         ManejadorJSON.guardar_json(Rutas.get_json("usuarios.json"), datos)
+
+    def actualizar(self, usuario_actualizado: Usuario) -> None:
+        usuarios = self.obtener_todos()
+
+        for indice, usuario in enumerate(usuarios):
+            if usuario.id == usuario_actualizado.id:
+                usuarios[indice] = usuario_actualizado
+                break
+        else:
+            raise ValueError("El usuario no existe.")
+
+        datos = [
+            asdict(usuario)
+            for usuario in usuarios
+        ]
+
+        ManejadorJSON.guardar_json(Rutas.get_json("usuarios.json"), datos)

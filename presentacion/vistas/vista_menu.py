@@ -2,6 +2,7 @@ import customtkinter as ctk
 from Utils.utils import *
 from presentacion.vistas.vista_base import VistaBase
 from presentacion.navegacion.tipo_vista import TipoVista
+from presentacion.vistas.vista_catalogo import VistaCatalogo
 
 class Menu(ctk.CTkFrame, VistaBase):
     
@@ -18,6 +19,12 @@ class Menu(ctk.CTkFrame, VistaBase):
 
         self.grid_rowconfigure(0, weight=0)
         self.grid_rowconfigure(1, weight=1)
+
+        self.contenido = ctk.CTkFrame(self, fg_color="transparent")
+        self.contenido.grid(row=1, column=1, sticky="nsew", padx=(5, 20), pady=(10, 20))
+
+        self.contenido.grid_columnconfigure(0, weight=1)
+        self.contenido.grid_rowconfigure(0, weight=1)
 
         self.cabecera = ctk.CTkFrame(self, width=500, height=100, corner_radius=20, fg_color=NEGRO_PANEL, border_width=1, border_color=GRIS_BORDE)
         self.cabecera.grid(row=0, column=0, columnspan=2, sticky="ew", padx=20, pady=(20, 5))
@@ -39,8 +46,16 @@ class Menu(ctk.CTkFrame, VistaBase):
         self.boton_cerrar_sesion = ctk.CTkButton(self.cabecera, text="Cerrar sesión", width=125, height=36, corner_radius=10, fg_color=ROJO_ACENTO, hover_color=ROJO_HOVER, text_color=CREMA_TEXTO, command=lambda: self.navegacion.mostrar_vista(TipoVista.LOGIN))
         self.boton_cerrar_sesion.place(relx=1.0, rely=0.5, x=-20, anchor="e")
 
-        self.boton_inicio = ctk.CTkButton(self.menu_scroll, text="🏠  Inicio", height=60, corner_radius=10, fg_color=MARRON_MADERA, hover_color=BEIGE_MADERA, text_color=CREMA_TEXTO, anchor="w", command=self.accion_boton)
+        self.boton_inicio = ctk.CTkButton(self.menu_scroll, text="🏠  Inicio", height=60, corner_radius=10, fg_color=MARRON_MADERA, hover_color=BEIGE_MADERA, text_color=CREMA_TEXTO, anchor="w", command= lambda: self.navegacion.mostrar_contenido(TipoVista.INICIO, self.contenido))
         self.boton_inicio.grid(row=1, column=0, sticky="ew", padx=10, pady=8)
+
+        self.boton_catalogo = ctk.CTkButton(self.menu_scroll, text="📚  Catálogo", height=60, corner_radius=10, fg_color=MARRON_MADERA, hover_color=BEIGE_MADERA, text_color=CREMA_TEXTO, anchor="w", command=lambda:  self.navegacion.mostrar_contenido(TipoVista.CATALOGO, self.contenido))
+        self.boton_catalogo.grid(row=2, column=0, sticky="ew", padx=10, pady=8)
+
+        self.boton_perfil = ctk.CTkButton(self.menu_scroll, text="👤  Perfil", height=60, corner_radius=10, fg_color=MARRON_MADERA, hover_color=BEIGE_MADERA, text_color=CREMA_TEXTO, anchor="w", command=lambda: self.navegacion.mostrar_contenido(TipoVista.PERFIL, self.contenido))
+        self.boton_perfil.grid(row=3, column=0, sticky="ew", padx=10, pady=8)
+
+        self.navegacion.mostrar_contenido(TipoVista.INICIO, self.contenido)
 
     def alternar_menu(self):
         if self.menu_expandido:
@@ -55,6 +70,8 @@ class Menu(ctk.CTkFrame, VistaBase):
         self.menu_scroll.configure(width= ANCHO_MENU_CERRADO)
 
         self.boton_inicio.configure(text="🏠", anchor="center")
+        self.boton_catalogo.configure(text="📚", anchor="center")
+        self.boton_perfil.configure(text="👤", anchor = "center")
 
     def abrir_menu(self):
 
@@ -65,9 +82,5 @@ class Menu(ctk.CTkFrame, VistaBase):
         self.menu_scroll.configure(width=230)
 
         self.boton_inicio.configure(text="🏠  Inicio", anchor="w")
-
-    def accion_boton(self):
-        print("Mostrando inicio")
-
-        if self.menu_expandido:
-            self.cerrar_menu()
+        self.boton_catalogo.configure(text= "📚  Catálogo", anchor="w")
+        self.boton_perfil.configure(text="👤  Perfil", anchor="w")

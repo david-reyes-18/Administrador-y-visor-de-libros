@@ -4,3 +4,6 @@ class TipoVista(Enum):
     LOGIN = auto()
     REGISTRO = auto()
     MENU = auto()
+    CATALOGO = auto()
+    INICIO = auto()
+    PERFIL = auto()

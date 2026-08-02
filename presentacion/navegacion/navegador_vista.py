@@ -10,6 +10,8 @@ class NavegadorVista:
         self.vistas: dict[TipoVista, Callable[[], ctk.CTkFrame]] = {}
         self.vista_actual: ctk.CTkFrame | None = None
         self.tipo_vista_actual: TipoVista | None = None
+        self.contenido_actual: ctk.CTkFrame | None = None
+        self.tipo_contenido_actual: TipoVista | None = None
 
     def agregar_vista(self, tipo_vista: TipoVista, crear_vista: Callable[[], ctk.CTkFrame]):
         self.vistas[tipo_vista] = crear_vista
@@ -25,3 +27,16 @@ class NavegadorVista:
         self.vista_actual = crear_vista()
         self.vista_actual.place(x=0, y=0, relwidth=1, relheight=1)
         self.tipo_vista_actual = tipo_vista
+
+    def mostrar_contenido(self, tipo_vista: TipoVista, contenedor):
+        crear_vista = self.vistas.get(tipo_vista)
+
+        if crear_vista is None:
+            raise ValueError(f"La vista {tipo_vista.name} no está registrada.")
+
+        if self.contenido_actual is not None:
+            self.contenido_actual.destroy()
+
+        self.contenido_actual = crear_vista(contenedor)
+        self.contenido_actual.grid(row=0, column=0, sticky="nsew")
+        self.tipo_contenido_actual = tipo_vista
